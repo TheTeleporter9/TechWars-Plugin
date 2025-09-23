@@ -1,1 +1,20 @@
-doTechTree: 'yes'
+
+
+Teams:
+    Team1:
+        -playerA
+        -playerB
+        -playerC
+    TeamB:
+        -player1
+        -player2
+    CollTeam:
+        -player1A
+        -plaeyr2B
+        -plaeyr3C
+        -player4d
+
+# List of developers who can access developer tools
+Developers:
+    - developer1
+    - developer2

@@ -8,3 +8,6 @@ commands:
   testgui:
     description: "This is a test command"
     usage: "/testgui"
+  dev:
+    description: "Opens the developer menu"
+    usage: "/dev"

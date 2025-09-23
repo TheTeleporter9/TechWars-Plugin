@@ -18,6 +18,7 @@ public abstract class SimpleMenue implements Menue{
         this.inventory = Bukkit.createInventory(this, rows.getSize(), title);
     }
 
+
     @Override
     public void click(Player player, int slot) {
         final Consumer<Player> action = this.actions.get(slot);

@@ -19,7 +19,7 @@ public class TechTreeMenues extends SimpleMenue {
     )); // Adding the heads of the "snake"
 
     public TechTreeMenues() {
-        super(Rows.FIVE, "TechTree");
+        super(SimpleMenue.Rows.FIVE, "TechTree");
         setupResearchTreeConfig();
         treeLoader = new ResearchTreeLoader(); // Load the research tree
     }
