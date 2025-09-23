@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.solocode.techwars.TechTree.TechTreeMenues;
 import org.solocode.techwars.TechWars;
-import org.solocode.techwars.teams.Team;
+import org.solocode.teams.Team;
 
 public class testGui implements CommandExecutor {
     @Override

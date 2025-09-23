@@ -3,11 +3,10 @@ package org.solocode.techwars;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.solocode.menu.listeners.InventoryListener;
-import org.solocode.techwars.TechTree.ConfigReader;
 import org.solocode.techwars.commands.DevCommand;
 import org.solocode.techwars.commands.testGui;
 import org.solocode.techwars.listeners.ConfigListener;
-import org.solocode.techwars.teams.TeamManager;
+import org.solocode.teams.TeamManager;
 
 public final class TechWars extends JavaPlugin {
     private static TechWars instance;

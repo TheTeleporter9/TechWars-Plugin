@@ -4,9 +4,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.solocode.menu.BaseMenu;
-import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.techwars.TechWars;
-import org.solocode.techwars.teams.Team;
+import org.solocode.teams.Team;
 
 import java.util.HashMap;
 import java.util.Map;

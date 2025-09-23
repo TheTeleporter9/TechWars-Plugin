@@ -24,8 +24,25 @@ public class ConfigReader {
         if(!file.exists()) {
             try {
                 file.createNewFile();
+                customFile = YamlConfiguration.loadConfiguration(file);
+                
+                // Set default values
+                customFile.set("unlockname", "Research");
+                customFile.set("unlockstages", 3);
+                
+                // Example stage structure
+                customFile.set("stages.1.UnlockItems", new String[]{"STONE_PICKAXE", "STONE_AXE"});
+                customFile.set("stages.1.UnlockedRecipes", new String[]{"STONE_TOOLS"});
+                
+                customFile.set("stages.2.UnlockItems", new String[]{"IRON_PICKAXE", "IRON_AXE"});
+                customFile.set("stages.2.UnlockedRecipes", new String[]{"IRON_TOOLS"});
+                
+                customFile.set("stages.3.UnlockItems", new String[]{"DIAMOND_PICKAXE", "DIAMOND_AXE"});
+                customFile.set("stages.3.UnlockedRecipes", new String[]{"DIAMOND_TOOLS"});
+                
+                save();
             } catch (IOException e) {
-                Bukkit.getLogger().warning("Error reading researchTree.yml file" + e.toString());
+                Bukkit.getLogger().warning("Error creating researchTree.yml file: " + e.toString());
             }
         }
 

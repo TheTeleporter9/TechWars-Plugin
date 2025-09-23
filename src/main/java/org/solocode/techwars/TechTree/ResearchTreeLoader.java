@@ -18,6 +18,7 @@ public class ResearchTreeLoader {
     private int unlockStages;
 
     public ResearchTreeLoader() {
+        ConfigReader.setup();  // Ensure config is set up
         load();
     }
 
@@ -26,6 +27,9 @@ public class ResearchTreeLoader {
      */
     public void load() {
         FileConfiguration config = ConfigReader.get();
+        if (config == null) {
+            throw new IllegalStateException("Research tree configuration could not be loaded!");
+        }
 
         // Get general info
         unlockName = config.getString("unlockname", "DefaultUnlock");

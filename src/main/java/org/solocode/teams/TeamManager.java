@@ -1,6 +1,5 @@
-package org.solocode.techwars.teams;
+package org.solocode.teams;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.solocode.techwars.TechWars;
 import org.bukkit.configuration.ConfigurationSection;

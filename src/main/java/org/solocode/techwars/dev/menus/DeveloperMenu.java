@@ -1,20 +1,15 @@
-package org.solocode.techwars.dev;
+package org.solocode.techwars.dev.menus;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.solocode.menu.BaseMenu;
 import org.solocode.menu.SimpleMenue.Rows;
-import org.solocode.techwars.dev.menus.*;
 import org.solocode.teams.Team;
 
-/**
- * Developer menu for managing teams and plugin data
- */
 public class DeveloperMenu extends BaseMenu {
-
-    public DeveloperMenu(Player player) {
-        super(Rows.SIX, "§6Developer Menu");
+    
+    public DeveloperMenu(Player viewer) {
+        super(Rows.THREE, "§6Developer Menu");
         onSetItems();
     }
 
@@ -43,28 +38,22 @@ public class DeveloperMenu extends BaseMenu {
             "§ePlayer Management",
             "§7Manage individual",
             "§7player data"));
-
-        // Close Button
-        setItem(49, createItem(Material.BARRIER, "§cClose", "§7Click to close"));
     }
 
     @Override
     public void click(Player player, int slot) {
-        switch(slot) {
+        switch (slot) {
             case 10:
-                new org.solocode.techwars.dev.menus.ServerDataMenu(player).open(player);
+                new ServerDataMenu(player).open(player);
                 break;
             case 12:
-                new org.solocode.techwars.dev.menus.PluginDataMenu(player).open(player);
+                new PluginDataMenu(player).open(player);
                 break;
             case 14:
-                new org.solocode.techwars.dev.menus.TeamEditMenu(player, null).open(player);
+                new TeamEditMenu(player, null).open(player);
                 break;
             case 16:
-                new org.solocode.techwars.dev.menus.PlayerManagementMenu(player, player.getName(), null).open(player);
-                break;
-            case 49:
-                player.closeInventory();
+                new PlayerManagementMenu(player, player.getName(), null).open(player);
                 break;
         }
     }
