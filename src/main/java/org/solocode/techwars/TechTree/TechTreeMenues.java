@@ -2,17 +2,24 @@ package org.solocode.techwars.TechTree;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.solocode.menu.SimpleMenue;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TechTreeMenues extends SimpleMenue {
 
-    private ResearchTreeLoader treeLoader;
+    private final ResearchTreeLoader treeLoader;
+
+    private ArrayList<Integer> inventorySlots = new ArrayList<>(List.of(
+            0, 1, 2, 4, 5, 6, 8
+    )); // Adding the heads of the "snake"
 
     public TechTreeMenues() {
-        super(Rows.THREE, "TechTree");
+        super(Rows.FIVE, "TechTree");
         setupResearchTreeConfig();
         treeLoader = new ResearchTreeLoader(); // Load the research tree
     }
@@ -23,37 +30,46 @@ public class TechTreeMenues extends SimpleMenue {
         ConfigReader.get().addDefault("unlockname", "Minecraft");
         ConfigReader.get().options().copyDefaults(true);
         ConfigReader.save();
+
+        //Setup inventory slots list:
+        for (int i = 9; i <= 44; i +=2) {
+            if(i == 19 || i == 28 || i == 37) i -= 1;
+            inventorySlots.add(i);
+        }
     }
+
+
 
     @Override
     public void onSetItems() {
-        String unlockName = treeLoader.getUnlockName();
         int totalStages = treeLoader.getUnlockStages();
+        String unlockName = treeLoader.getUnlockName();
 
-        for (int i= 1; i <= totalStages; i++) {
-            ResearchTreeLoader.ResearchStage stage = treeLoader.getStage(i);
-            if(stage != null) {
-                Bukkit.getLogger().info("Stage " + i + " unlocks items: " + stage.getUnlockItems());
-                Bukkit.getLogger().info("Stage " + i + " unlocks recipes: " + stage.getUnlockedRecipes());
-            }
+        for (int currentStage = 1; currentStage <= totalStages; currentStage++) {
+
+            int smallestInvSlot = Collections.min(inventorySlots);
+            setItem(smallestInvSlot, IconType.Locked.getItemType(IconType.Locked), this::itemClicked);
+            inventorySlots.remove(Integer.valueOf(smallestInvSlot));
+        }
+
     }
 
-     enum IconType {
+
+    public void itemClicked(Player player) {
+        Bukkit.getLogger().info("yay it is working!");
+    }
+
+    enum IconType {
         Unlock,
-        Locked,
-        UnlockedMilestone,
-        LockedMilestone;
+        Locked;
 
         public ItemStack getItemType(IconType type) {
             ItemStack itemType = new ItemStack(Material.STONE);
                 switch (type) {
                     case Unlock -> itemType.setType(Material.BLUE_STAINED_GLASS_PANE);
                     case Locked -> itemType.setType(Material.RED_STAINED_GLASS_PANE);
-                    case UnlockedMilestone -> itemType.setType(Material.LIME_SHULKER_BOX);
-                    case LockedMilestone -> itemType.setType(Material.COMMAND_BLOCK);
                 }
                 return itemType;
             }
         }
     }
-}

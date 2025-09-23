@@ -52,7 +52,8 @@ public abstract class SimpleMenue implements Menue{
         TWO(2),
         THREE(3),
         FOUR(4),
-        FIVE(5);
+        FIVE(5),
+        SIX(6);
         private final int size;
         Rows(int rows) {
             this.size = rows * 9;

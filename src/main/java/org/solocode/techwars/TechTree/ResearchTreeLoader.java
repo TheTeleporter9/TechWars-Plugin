@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Loads a research tree from the researchTree.yml file using ConfigReader.
+ * All data is stored in memory for fast access.
  */
 public class ResearchTreeLoader {
 
@@ -32,14 +33,14 @@ public class ResearchTreeLoader {
 
         stages.clear();
 
-        // If the YAML contains a "stages" section, loop through each stage
+        // Load stages
         if (config.getConfigurationSection("stages") != null) {
             for (String key : config.getConfigurationSection("stages").getKeys(false)) {
                 int stageNumber;
                 try {
                     stageNumber = Integer.parseInt(key);
                 } catch (NumberFormatException e) {
-                    continue; // skip invalid stage keys
+                    continue; // skip invalid keys
                 }
 
                 List<String> unlockItems = config.getStringList("stages." + key + ".UnlockItems");
@@ -51,24 +52,52 @@ public class ResearchTreeLoader {
         }
     }
 
-    // Getters
+    // ------------------------------
+    // In-Memory Access Methods
+    // ------------------------------
+
+    /** Get the name of the unlock */
     public String getUnlockName() {
         return unlockName;
     }
 
+    /** Get the total number of stages */
     public int getUnlockStages() {
         return unlockStages;
     }
 
+    /** Get all stages as a map */
     public Map<Integer, ResearchStage> getStages() {
         return stages;
     }
 
+    /** Get a specific stage by number */
     public ResearchStage getStage(int stageNumber) {
         return stages.get(stageNumber);
     }
 
+    /** Get all unlock items in memory (flattened) */
+    public List<String> getAllUnlockItems() {
+        List<String> allItems = new ArrayList<>();
+        for (ResearchStage stage : stages.values()) {
+            allItems.addAll(stage.getUnlockItems());
+        }
+        return allItems;
+    }
+
+    /** Get all unlocked recipes in memory (flattened) */
+    public List<String> getAllUnlockedRecipes() {
+        List<String> allRecipes = new ArrayList<>();
+        for (ResearchStage stage : stages.values()) {
+            allRecipes.addAll(stage.getUnlockedRecipes());
+        }
+        return allRecipes;
+    }
+
+    // ------------------------------
     // Inner class representing a single stage
+    // ------------------------------
+
     public static class ResearchStage {
         private final int stageNumber;
         private final List<String> unlockItems;
