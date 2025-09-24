@@ -8,20 +8,31 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.solocode.menu.BaseMenu;
-import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.techwars.TechWars;
-import org.solocode.teams.Team;
 import org.solocode.techwars.TechTree.ResearchTreeLoader;
 
+/**
+ * A developer menu for displaying various plugin-specific data and statistics.
+ * This includes plugin version, team statistics, research data overview, and configuration file info.
+ * It also provides navigation to other developer menus.
+ */
 public class PluginDataMenu extends BaseMenu {
     private final TechWars plugin;
 
+    /**
+     * Constructs a new PluginDataMenu.
+     * @param viewer The player who is viewing this menu.
+     */
     public PluginDataMenu(Player viewer) {
         super(Rows.SIX, "§6Plugin Data");
         this.plugin = TechWars.getInstance();
         onSetItems();
     }
 
+    /**
+     * Sets up the items and their actions within the plugin data menu.
+     * Displays various plugin statistics and navigation buttons.
+     */
     @Override
     public void onSetItems() {
         // Plugin Status
@@ -65,6 +76,12 @@ public class PluginDataMenu extends BaseMenu {
             "§7Return to developer menu"));
     }
 
+    /**
+     * Handles click events within the plugin data menu.
+     * Navigates to other developer menus based on the clicked slot.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         switch (slot) {
@@ -77,6 +94,10 @@ public class PluginDataMenu extends BaseMenu {
         }
     }
 
+    /**
+     * Counts the total number of players across all configured teams.
+     * @return The total number of players.
+     */
     private int getPlayerCount() {
         int count = 0;
         if (plugin.getConfig().getConfigurationSection("teams") != null) {
@@ -87,6 +108,10 @@ public class PluginDataMenu extends BaseMenu {
         return count;
     }
 
+    /**
+     * Counts the total number of technologies configured in the research tree.
+     * @return The total count of technologies.
+     */
     private int countTechnologies() {
         int count = 0;
         var researchSection = plugin.getConfig().getConfigurationSection("research");
@@ -103,6 +128,11 @@ public class PluginDataMenu extends BaseMenu {
         return count;
     }
 
+    /**
+     * Formats a given timestamp into a readable string.
+     * @param timestamp The timestamp in milliseconds.
+     * @return A formatted date and time string.
+     */
     private String formatTimestamp(long timestamp) {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             .withZone(ZoneId.systemDefault())

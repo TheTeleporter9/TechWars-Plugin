@@ -11,23 +11,88 @@ Teams:
     members:
       - TheTeleporter9
 
-# Research configuration
-Research:
-  Technology:
-    Basic:
-      requirements: []
-      rewards:
-        - STONE_TOOLS
-    Advanced:
+# Research Tree Configuration
+ResearchTree:
+  # Pattern: Each stage is defined with requirements and unlocks
+  # Requirements are items needed to unlock the stage
+  # Unlocks are recipes/items that become available after unlocking
+  stages:
+    1:
+      name: "Basic Tools"
+      description: "Unlocks basic stone tools"
       requirements:
-        - Basic
-      rewards:
-        - IRON_TOOLS
-    Expert:
+        - item: COBBLESTONE
+          amount: 32
+        - item: STICK
+          amount: 16
+      unlocks:
+        recipes:
+          - STONE_PICKAXE
+          - STONE_AXE
+          - STONE_SHOVEL
+        permissions:
+          - "techwars.craft.stone"
+    
+    2:
+      name: "Iron Working"
+      description: "Unlocks iron tool crafting"
       requirements:
-        - Advanced
-      rewards:
-        - DIAMOND_TOOLS
+        - item: IRON_INGOT
+          amount: 16
+        - item: FURNACE
+          amount: 1
+      unlocks:
+        recipes:
+          - IRON_PICKAXE
+          - IRON_AXE
+          - IRON_SHOVEL
+        permissions:
+          - "techwars.craft.iron"
+    
+    # Add more stages as needed...
+
+# Team Progress Storage Configuration
+# This is just the structure - actual progress is stored in data files
+TeamProgress:
+  structure:
+    unlockedStages: []
+    currentStage: 1
+    researchPoints: 0
+
+# UI Configuration
+UI:
+  researchTree:
+    title: "Research Tree"
+    pattern:
+      - direction: "up"
+        slots: [0, 9, 18, 27, 36, 45]
+      - direction: "down"
+        slots: [1, 10, 19, 28, 37, 46]
+      # Continue pattern...
+    items:
+      unlocked:
+        material: BLUE_STAINED_GLASS_PANE
+        name: "&bUnlocked Stage"
+      current:
+        material: CHAIN_COMMAND_BLOCK
+        name: "&eCurrently Researchable"
+      locked:
+        material: RED_STAINED_GLASS_PANE
+        name: "&cLocked Stage"
+  
+  upgrade:
+    title: "Research Upgrade"
+    slots:
+      back: 0
+      requirements: [3, 4, 5]
+      submit: [7, 8, 9]
+    items:
+      back:
+        material: SPECTRAL_ARROW
+        name: "&eBack to Research Tree"
+      submit:
+        material: LIME_STAINED_GLASS_PANE
+        name: "&aSubmit Resources"
 
 # Plugin version - do not modify
 version: 1.0

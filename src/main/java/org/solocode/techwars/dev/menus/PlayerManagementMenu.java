@@ -9,8 +9,6 @@ import org.solocode.menu.BaseMenu;
 import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.teams.Team;
 import org.solocode.techwars.TechWars;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -18,10 +16,21 @@ import net.kyori.adventure.text.format.TextColor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A menu for developers to manage players. This menu displays a list of online players
+ * and allows for various management actions such as viewing their inventory, kicking them,
+ * or assigning them to teams. It can be opened from the DeveloperMenu or TeamEditMenu.
+ */
 public class PlayerManagementMenu extends BaseMenu {
     private final String targetPlayerName;
     private final Team currentTeam;
 
+    /**
+     * Constructs a new PlayerManagementMenu.
+     * @param viewer The player who is viewing this menu.
+     * @param targetPlayerName The name of the player whose actions are being managed. Can be null if showing all players.
+     * @param team The current team context, or null if managing players globally.
+     */
     public PlayerManagementMenu(Player viewer, String targetPlayerName, Team team) {
         super(Rows.SIX, "§6Player Management");
         this.targetPlayerName = targetPlayerName;
@@ -29,6 +38,10 @@ public class PlayerManagementMenu extends BaseMenu {
         onSetItems();
     }
 
+    /**
+     * Sets up the items and their actions within the player management menu.
+     * Displays online players as player heads and provides action buttons.
+     */
     @Override
     public void onSetItems() {
         int slot = 10;
@@ -69,6 +82,12 @@ public class PlayerManagementMenu extends BaseMenu {
             currentTeam != null ? "§7Return to team view" : "§7Return to developer menu"));
     }
 
+    /**
+     * Handles click events within the player management menu.
+     * Processes player selection for further actions or navigates back.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         if (slot == 49) {

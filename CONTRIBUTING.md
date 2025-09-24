@@ -1,0 +1,127 @@
+# Contributing to TechWars
+
+We welcome contributions to the TechWars plugin! By contributing, you help us improve the plugin for everyone. Please take a moment to review this document to understand our contribution guidelines.
+
+## Table of Contents
+
+1.  [Code of Conduct](#code-of-conduct)
+2.  [How to Contribute](#how-to-contribute)
+    *   [Reporting Bugs](#reporting-bugs)
+    *   [Suggesting Enhancements](#suggesting-enhancements)
+    *   [Pull Requests](#pull-requests)
+3.  [Development Setup](#development-setup)
+    *   [Prerequisites](#prerequisites)
+    *   [Getting Started](#getting-started)
+    *   [Building the Project](#building-the-project)
+4.  [Code Style and Guidelines](#code-style-and-guidelines)
+    *   [Java Code Style](#java-code-style)
+    *   [YAML Configuration Style](#yaml-configuration-style)
+    *   [Commit Messages](#commit-messages)
+5.  [License](#license)
+
+## Code of Conduct
+
+By participating in this project, you are expected to uphold our Code of Conduct. Please review it to understand the expected behavior.
+
+## How to Contribute
+
+### Reporting Bugs
+
+If you find a bug, please open an issue on our GitHub repository. When reporting a bug, please include:
+
+*   A clear and concise description of the bug.
+*   Steps to reproduce the behavior.
+*   Expected behavior.
+*   Screenshots or logs if applicable.
+*   Your server version, plugin version, and any relevant error messages from the console.
+
+### Suggesting Enhancements
+
+We welcome suggestions for new features or improvements. Please open an issue on our GitHub repository to propose an enhancement. Include:
+
+*   A clear and concise description of the proposed enhancement.
+*   Why this enhancement would be beneficial.
+*   Any mock-ups or examples if applicable.
+
+### Pull Requests
+
+1.  **Fork the repository** and clone it to your local machine.
+2.  **Create a new branch** for your feature or bug fix: `git checkout -b feature/your-feature-name` or `bugfix/your-bug-fix`.
+3.  **Implement your changes**, following our [Code Style and Guidelines](#code-style-and-guidelines).
+4.  **Test your changes** thoroughly to ensure they work as expected and don't introduce new issues.
+5.  **Commit your changes** with a clear and concise commit message (see [Commit Messages](#commit-messages)).
+6.  **Push your branch** to your forked repository.
+7.  **Open a Pull Request** to the `main` branch of the original repository.
+    *   Provide a descriptive title and detailed description of your changes.
+    *   Reference any related issues (e.g., `Fixes #123`, `Closes #456`).
+
+## Development Setup
+
+### Prerequisites
+
+*   **Java Development Kit (JDK):** Version 16 or newer. (Refer to `pom.xml` for the exact version configured).
+*   **Maven:** For building the project.
+*   **Git:** For version control.
+*   **An IDE:** IntelliJ IDEA (recommended) or VS Code with Java extensions.
+
+### Getting Started
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/YourOrg/TechWars.git
+    cd TechWars
+    ```
+2.  **Import into your IDE:** Import the project as a Maven project.
+
+### Building the Project
+
+To build the plugin, navigate to the project's root directory in your terminal and run:
+
+```bash
+mvn clean package
+```
+
+This will compile the code, run tests, and package the plugin into a `.jar` file (e.g., `TechWars-1.0-SNAPSHOT.jar`) in the `target/` directory.
+
+## Code Style and Guidelines
+
+### Java Code Style
+
+*   Follow Google Java Format or standard Java conventions.
+*   Use clear and descriptive variable and method names.
+*   Add JavaDocs for all public and protected classes, methods, and complex logic.
+*   Keep methods concise and focused on a single responsibility.
+
+### YAML Configuration Style
+
+*   Use 2 spaces for indentation.
+*   Ensure keys are descriptive and consistent.
+*   Comments should explain complex sections.
+
+### Commit Messages
+
+We follow a conventional commit style for our commit messages (e.g., `feat: Add new research stage` or `fix: Resolve ArrayIndexOutOfBoundsException`).
+
+*   **`feat`**: A new feature.
+*   **`fix`**: A bug fix.
+*   **`docs`**: Documentation only changes.
+*   **`style`**: Changes that do not affect the meaning of the code (white-space, formatting, missing semicolons, etc.).
+*   **`refactor`**: A code change that neither fixes a bug nor adds a feature.
+*   **`perf`**: A code change that improves performance.
+*   **`test`**: Adding missing tests or correcting existing tests.
+*   **`build`**: Changes that affect the build system or external dependencies (e.g., maven, npm).
+*   **`ci`**: Changes to our CI configuration files and scripts.
+*   **`chore`**: Other changes that don't modify src or test files.
+*   **`revert`**: Reverts a previous commit.
+
+## See Also
+
+*   [Introduction to TechWars](../README.md)
+*   [Developer API Documentation](../docs/DEVELOPER_API.md)
+
+## License
+
+By contributing to TechWars, you agree that your contributions will be licensed under its [MIT License](LICENSE).
+
+---
+*Generated by TechWars Plugin Documentation Assistant.*

@@ -4,18 +4,26 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.solocode.menu.BaseMenu;
-import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.techwars.TechTree.ResearchTreeLoader;
 import org.solocode.teams.Team;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A developer menu for viewing and managing a team's research progress.
+ * This menu displays each research stage and allows developers to toggle their unlocked status for the selected team.
+ */
 public class ResearchProgressMenu extends BaseMenu {
     private final Team team;
     private ResearchTreeLoader treeLoader;
     private final Map<Integer, String> researchSlots = new HashMap<>();
 
+    /**
+     * Constructs a new ResearchProgressMenu.
+     * @param viewer The player who is viewing this menu.
+     * @param team The team whose research progress is to be managed.
+     */
     public ResearchProgressMenu(Player viewer, Team team) {
         super(Rows.SIX, "§6Research Progress: " + team.getName());
         this.team = team;
@@ -28,6 +36,10 @@ public class ResearchProgressMenu extends BaseMenu {
         onSetItems();
     }
 
+    /**
+     * Sets up the items and their actions within the research progress menu.
+     * Displays each research stage with its current unlocked status for the team.
+     */
     @Override
     public void onSetItems() {
         if (treeLoader == null) {
@@ -67,6 +79,12 @@ public class ResearchProgressMenu extends BaseMenu {
             "§7Return to team view"));
     }
 
+    /**
+     * Handles click events within the research progress menu.
+     * Allows toggling the unlocked status of research stages for the team.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         if (slot == 49) {

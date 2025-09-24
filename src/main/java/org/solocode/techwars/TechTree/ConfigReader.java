@@ -1,11 +1,8 @@
 package org.solocode.techwars.TechTree;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-
 import java.io.File;
 import java.io.IOException;
 

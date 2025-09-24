@@ -5,16 +5,28 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.solocode.menu.BaseMenu;
-import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.techwars.dev.menus.DeveloperMenu;
 
+/**
+ * A developer menu for displaying various server performance and data statistics.
+ * This includes TPS, memory usage, world data, and online player count.
+ * It also provides navigation to other developer menus.
+ */
 public class ServerDataMenu extends BaseMenu {
     
+    /**
+     * Constructs a new ServerDataMenu.
+     * @param viewer The player who is viewing this menu.
+     */
     public ServerDataMenu(Player viewer) {
         super(Rows.SIX, "§6Server Data");
         onSetItems();
     }
 
+    /**
+     * Sets up the items and their actions within the server data menu.
+     * Displays server performance metrics and world-specific information.
+     */
     @Override
     public void onSetItems() {
         // Performance Data (centered top)
@@ -61,6 +73,12 @@ public class ServerDataMenu extends BaseMenu {
             "§7Return to developer menu"));
     }
 
+    /**
+     * Handles click events within the server data menu.
+     * Navigates to other developer menus based on the clicked slot.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         switch (slot) {
@@ -73,6 +91,11 @@ public class ServerDataMenu extends BaseMenu {
         }
     }
 
+    /**
+     * Formats the given TPS (ticks per second) value with color coding.
+     * @param tps The TPS value.
+     * @return A color-coded string representation of the TPS.
+     */
     private String formatTPS(double tps) {
         if (tps > 18.0) return "§a" + String.format("%.2f", tps);
         if (tps > 16.0) return "§e" + String.format("%.2f", tps);

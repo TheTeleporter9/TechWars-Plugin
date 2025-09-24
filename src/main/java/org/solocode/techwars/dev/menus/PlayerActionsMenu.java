@@ -4,13 +4,23 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.solocode.menu.BaseMenu;
-import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.teams.Team;
 
+/**
+ * A developer menu providing various actions for a specific target player.
+ * This menu allows developers to kick a player from their team, kick them from the server,
+ * or manage their inventory. It is typically accessed from the PlayerManagementMenu.
+ */
 public class PlayerActionsMenu extends BaseMenu {
     private final String targetPlayerName;
     private final Team team;
 
+    /**
+     * Constructs a new PlayerActionsMenu.
+     * @param viewer The player who is viewing this menu.
+     * @param targetPlayerName The name of the player on whom actions will be performed.
+     * @param team The team of the target player, or null if the player is not in a team.
+     */
     public PlayerActionsMenu(Player viewer, String targetPlayerName, Team team) {
         super(Rows.THREE, "§6Managing: " + targetPlayerName);
         this.targetPlayerName = targetPlayerName;
@@ -18,6 +28,10 @@ public class PlayerActionsMenu extends BaseMenu {
         onSetItems();
     }
 
+    /**
+     * Sets up the items and their actions within the player actions menu.
+     * Displays options to kick the player from team/server or manage their inventory.
+     */
     @Override
     public void onSetItems() {
         Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
@@ -47,6 +61,12 @@ public class PlayerActionsMenu extends BaseMenu {
             "§7Return to player list"));
     }
 
+    /**
+     * Handles click events within the player actions menu.
+     * Processes actions like kicking from team/server, managing inventory, or navigating back.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         Player targetPlayer = Bukkit.getPlayer(targetPlayerName);

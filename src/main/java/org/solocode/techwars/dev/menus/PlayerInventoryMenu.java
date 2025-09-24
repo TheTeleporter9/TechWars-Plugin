@@ -6,13 +6,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.solocode.menu.BaseMenu;
 import org.solocode.menu.SimpleMenue.Rows;
-import net.kyori.adventure.text.Component;
 
+/**
+ * A developer menu for viewing and managing a target player's inventory.
+ * This menu displays the player's main inventory and armor slots, allowing developers to
+ * inspect and modify their items. It also provides an option to clear the player's inventory.
+ */
 public class PlayerInventoryMenu extends BaseMenu {
     private final Player targetPlayer;
     private final PlayerInventory targetInventory;
     private final int[] armorSlots = {5, 14, 23, 32}; // Head to Boots
 
+    /**
+     * Constructs a new PlayerInventoryMenu.
+     * @param viewer The player who is viewing this menu.
+     * @param targetPlayer The player whose inventory is being managed.
+     */
     public PlayerInventoryMenu(Player viewer, Player targetPlayer) {
         super(Rows.SIX, "§6Inventory: " + targetPlayer.getName());
         this.targetPlayer = targetPlayer;
@@ -20,6 +29,10 @@ public class PlayerInventoryMenu extends BaseMenu {
         onSetItems();
     }
 
+    /**
+     * Sets up the items in the inventory menu.
+     * Displays the target player's armor and main inventory contents, along with action buttons.
+     */
     @Override
     public void onSetItems() {
         // Display armor slots (right side)
@@ -52,6 +65,11 @@ public class PlayerInventoryMenu extends BaseMenu {
             "§cThis action cannot be undone!"));
     }
 
+    /**
+     * Converts a player inventory slot to a menu slot for display purposes.
+     * @param inventorySlot The slot index in the player's inventory.
+     * @return The corresponding slot index in the menu, or -1 if invalid.
+     */
     private int getMenuSlot(int inventorySlot) {
         // Convert player inventory slot to menu slot
         // This centers the inventory contents in the menu
@@ -62,6 +80,12 @@ public class PlayerInventoryMenu extends BaseMenu {
         return (row + 1) * 9 + column;
     }
 
+    /**
+     * Handles click events within the player inventory management menu.
+     * Allows for navigation, clearing inventory, and modifying items.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         if (slot == 48) { // Back
@@ -105,6 +129,11 @@ public class PlayerInventoryMenu extends BaseMenu {
         onSetItems(); // Refresh the menu
     }
 
+    /**
+     * Checks if a given slot is an armor slot in the menu.
+     * @param slot The slot index to check.
+     * @return true if the slot is an armor slot, false otherwise.
+     */
     private boolean isArmorSlot(int slot) {
         for (int armorSlot : armorSlots) {
             if (slot == armorSlot) return true;
@@ -112,6 +141,11 @@ public class PlayerInventoryMenu extends BaseMenu {
         return false;
     }
 
+    /**
+     * Gets the corresponding armor array index for a given menu slot.
+     * @param menuSlot The menu slot index.
+     * @return The armor array index (0-3 for helmet, chestplate, leggings, boots), or -1 if not an armor slot.
+     */
     private int getArmorIndex(int menuSlot) {
         for (int i = 0; i < armorSlots.length; i++) {
             if (armorSlots[i] == menuSlot) return i;
@@ -119,6 +153,11 @@ public class PlayerInventoryMenu extends BaseMenu {
         return -1;
     }
 
+    /**
+     * Converts a menu slot back to a player inventory slot.
+     * @param menuSlot The menu slot index.
+     * @return The corresponding player inventory slot, or -1 if invalid.
+     */
     private int getInventorySlot(int menuSlot) {
         // Convert menu slot back to inventory slot
         int row = menuSlot / 9 - 1;

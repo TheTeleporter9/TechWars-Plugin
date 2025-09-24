@@ -11,21 +11,35 @@ import org.solocode.teams.Team;
 import org.bukkit.OfflinePlayer;
 import org.solocode.techwars.TechWars;
 import java.util.Collection;
-
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * A menu for developers to manage teams and their members. This menu allows for selection of a team
+ * to view its members, or to create a new team. When a team is selected, it displays options to manage
+ * individual members, view research progress, and access team settings.
+ */
 public class TeamEditMenu extends BaseMenu {
     private final Team team;
     private final Map<Integer, String> memberSlots = new HashMap<>();
 
+    /**
+     * Constructs a new TeamEditMenu.
+     * If `team` is null, the menu will display a list of available teams for selection.
+     * If `team` is provided, the menu will display options to manage members of that specific team.
+     * @param viewer The player who is viewing this menu.
+     * @param team The team to manage, or null to show team selection.
+     */
     public TeamEditMenu(Player viewer, Team team) {
         super(Rows.SIX, "§6Team Management");
         this.team = team;
         onSetItems();
     }
 
+    /**
+     * Sets up the items in the menu based on whether a team is selected or not.
+     * Displays team selection interface or team member management options.
+     */
     @Override
     public void onSetItems() {
         if (team == null) {
@@ -108,6 +122,12 @@ public class TeamEditMenu extends BaseMenu {
             "§7Return to developer menu"));
     }
 
+    /**
+     * Handles click events within the team edit menu.
+     * Processes team selection, creation, member management, and navigation.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         if (slot == 49) {
@@ -163,6 +183,13 @@ public class TeamEditMenu extends BaseMenu {
         }
     }
 
+    /**
+     * Creates an ItemStack representing a player head.
+     * @param playerName The name of the player whose head to display.
+     * @param displayName The display name of the item.
+     * @param lore Additional lore lines for the item.
+     * @return An ItemStack of a player head.
+     */
     private ItemStack createPlayerHead(String playerName, String displayName, String... lore) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) head.getItemMeta();

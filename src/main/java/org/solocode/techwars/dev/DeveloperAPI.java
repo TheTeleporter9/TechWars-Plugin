@@ -15,6 +15,10 @@ public class DeveloperAPI {
     private final TechWars plugin;
     private List<String> developers;
 
+    /**
+     * Constructs a new DeveloperAPI instance.
+     * @param plugin The instance of the TechWars plugin.
+     */
     public DeveloperAPI(TechWars plugin) {
         this.plugin = plugin;
         loadDevelopers();
@@ -44,8 +48,8 @@ public class DeveloperAPI {
     }
 
     /**
-     * Gets the plugin instance
-     * @return plugin instance
+     * Gets the plugin instance.
+     * @return The plugin instance.
      */
     public TechWars getPlugin() {
         return plugin;

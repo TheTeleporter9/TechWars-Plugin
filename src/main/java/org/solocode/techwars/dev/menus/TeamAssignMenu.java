@@ -4,14 +4,23 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.solocode.menu.BaseMenu;
-import org.solocode.menu.SimpleMenue.Rows;
 import org.solocode.teams.Team;
 import org.solocode.techwars.TechWars;
 
+/**
+ * A developer menu for assigning a target player to a team or removing them from their current team.
+ * This menu displays all available teams, highlighting the player's current team if any.
+ */
 public class TeamAssignMenu extends BaseMenu {
     private final String targetPlayerName;
     private final Team currentTeam;
 
+    /**
+     * Constructs a new TeamAssignMenu.
+     * @param viewer The player who is viewing this menu.
+     * @param targetPlayerName The name of the player whose team is being assigned.
+     * @param currentTeam The current team of the target player, or null if they are not in a team.
+     */
     public TeamAssignMenu(Player viewer, String targetPlayerName, Team currentTeam) {
         super(Rows.SIX, "§6Team Assignment: " + targetPlayerName);
         this.targetPlayerName = targetPlayerName;
@@ -19,6 +28,10 @@ public class TeamAssignMenu extends BaseMenu {
         onSetItems();
     }
 
+    /**
+     * Sets up the items and their actions within the team assignment menu.
+     * Displays available teams, a remove from team button (if applicable), and a back button.
+     */
     @Override
     public void onSetItems() {
         int slot = 10;
@@ -49,6 +62,12 @@ public class TeamAssignMenu extends BaseMenu {
             "§7Return to player management"));
     }
 
+    /**
+     * Handles click events within the team assignment menu.
+     * Processes team assignment, removal from team, or navigates back.
+     * @param player The player who clicked an item.
+     * @param slot The slot that was clicked.
+     */
     @Override
     public void click(Player player, int slot) {
         if (slot == 49) {

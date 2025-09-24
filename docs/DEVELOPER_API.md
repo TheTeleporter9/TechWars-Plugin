@@ -12,145 +12,99 @@ Developers:
 ```
 Only listed players will have access to developer tools.
 
+## Research Tree System
+
+### Configuration Structure
+The research tree is configured in `config.yml`:
+```yaml
+ResearchTree:
+  stages:
+    1:
+      name: "Stage Name"
+      description: "Stage Description"
+      requirements:
+        - item: MATERIAL_NAME
+          amount: NUMBER
+      unlocks:
+        recipes:
+          - RECIPE_NAME
+        permissions:
+          - "permission.node"
+```
+
+### Team Progress Storage
+Team progress is stored locally per team in the `teamData.json` file and includes:
+- Unlocked stages
+- Current research stage
+- Research points
+
+### Developer Tools
+
+#### Research Tree Management
+Access via `/dev` menu or direct commands like `/researchadmin`:
+
+1.  **Stage Management (via `/researchadmin` command or Dev Menu)**
+    -   Force unlock specific stages for a team.
+    -   Reset a team's entire research progress.
+    -   Copy research progress from one team to another.
+    -   Test current stage requirements (for debugging).
+
+2.  **Research Tree View (via `/researchtree` command or Dev Menu)**
+    -   View a team's current research progress.
+    -   Interact with the current research stage to submit resources for unlock.
+
 ## Developer Menu
-Access the developer menu using the `/dev` command. The menu provides access to:
-- Team Management
-- Data Management
-- Configuration Reload
+Access the developer menu using the `/dev` command. The menu provides access to various administrative and testing functionalities:
+-   Server Data: View server performance and statistics.
+-   Plugin Data: View plugin-specific information and configuration.
+-   Team Management: Manage teams, their members, and general team settings.
+-   Player Management: Manage individual player data, inventory, and team assignments.
+-   Research Management: Directly manage and test team research progress.
 
 ### Adding New Developer Features
 To add new features to the developer menu:
 
-1. Create a new menu class extending `SimpleMenue`:
-```java
-public class CustomFeatureMenu extends SimpleMenue {
-    public CustomFeatureMenu(Player player) {
-        super(6, "§6Custom Feature");
-        onSetItems();
-    }
-
-    @Override
-    public void onSetItems() {
-        // Add your menu items here
-        setItem(0, createItem(Material.DIAMOND, "§bFeature 1", "§7Description"));
-    }
-
-    @Override
-    public void onClick(Player player, int slot) {
-        // Handle click events
-        switch(slot) {
-            case 0:
-                // Handle Feature 1
-                break;
-        }
-    }
-}
-```
-
-2. Add a button to the DeveloperMenu:
-```java
-// In DeveloperMenu.onSetItems():
-setItem(slot, createItem(Material.YOUR_MATERIAL, "§eYour Feature", "§7Description"));
-
-// In DeveloperMenu.onClick():
-case yourSlot:
-    new CustomFeatureMenu(player).open(player);
-    break;
-```
+1.  Create a new menu class extending `BaseMenu`.
+2.  Implement the `onSetItems()` method to define the menu's visual layout and items.
+3.  Implement the `click(Player player, int slot)` method to handle player interactions with the menu items.
+4.  Add a button to the main `DeveloperMenu` class (`src/main/java/org/solocode/techwars/dev/DeveloperMenu.java`) that opens your new menu.
 
 ### Creating Custom Data Managers
-To add custom data management:
+To add custom data management for teams, utilize the `Team` class's data storage:
 
-1. Create a data structure:
-```java
-public class CustomData {
-    private final String name;
-    private final Map<String, Object> data;
-
-    public CustomData(String name) {
-        this.name = name;
-        this.data = new HashMap<>();
-    }
-
-    // Add getters/setters
-}
-```
-
-2. Add data storage to Team:
-```java
-Team team = teamManager.getTeam("TeamName").orElse(null);
-if (team != null) {
-    CustomData data = new CustomData("featureName");
-    team.setData("customFeature", data);
-}
-```
-
-3. Create a menu to manage the data:
-```java
-public class CustomDataMenu extends SimpleMenue {
-    private final Team team;
-
-    public CustomDataMenu(Player player, Team team) {
-        super(6, "§6Data Manager");
-        this.team = team;
-        onSetItems();
-    }
-
-    @Override
-    public void onSetItems() {
-        // Add items to view/modify custom data
-        CustomData data = team.getData("customFeature");
-        // Display data in menu
-    }
-}
-```
+1.  Define your custom data structure (e.g., a simple class with fields).
+2.  Use `team.setData("yourKey", yourCustomObject)` to store the data.
+3.  Retrieve data with `YourCustomClass data = team.getData("yourKey")`.
+4.  Create a menu (extending `BaseMenu`) to visualize and modify this data.
 
 ## Best Practices
-1. Always validate developer permissions using `DeveloperAPI.isDeveloper()`
-2. Use descriptive menu titles and item descriptions
-3. Implement confirmation for destructive actions
-4. Keep data structures organized and documented
-5. Use team-specific data storage for feature data
-6. Implement proper error handling and user feedback
+1.  Always validate developer permissions using `DeveloperAPI.isDeveloper()` before granting access to sensitive tools.
+2.  Use clear and descriptive titles and lore for menu items to enhance usability.
+3.  Implement confirmation steps for any destructive actions (e.g., resetting progress, kicking players).
+4.  Maintain organized and well-documented data structures, especially those stored in team data.
+5.  Utilize team-specific data storage (`Team.setData`/`getData`) for features that need to track progress or settings per team.
+6.  Provide clear feedback to users (e.g., success messages, error messages) for their actions.
+7.  Leverage the provided `createItem` helper method in `BaseMenu` for consistent item creation.
 
-## Example: Adding Team Research Data
+## Example: Managing Team Research Data
+The `TeamResearchData` class (`src/main/java/org/solocode/techwars/TechTree/TeamResearchData.java`) is an example of how team-specific research progress is managed:
+
 ```java
-// Create data structure
-public class ResearchData {
-    private final Set<String> unlockedTech;
-    private final Map<String, Integer> researchProgress;
+// Load team-specific research data
+TeamResearchData researchData = new TeamResearchData(team);
 
-    public ResearchData() {
-        this.unlockedTech = new HashSet<>();
-        this.researchProgress = new HashMap<>();
-    }
+// Access current stage and unlocked stages
+int currentStage = researchData.getCurrentStage();
+List<String> unlockedStages = researchData.getUnlockedStages();
 
-    public void unlockTech(String techId) {
-        unlockedTech.add(techId);
-    }
-
-    public boolean hasTech(String techId) {
-        return unlockedTech.contains(techId);
-    }
-}
-
-// Store data for a team
-Team team = teamManager.getTeam("TeamName").orElse(null);
-if (team != null) {
-    ResearchData data = new ResearchData();
-    data.unlockTech("basic_tech");
-    team.setData("research", data);
-}
-
-// Access data in menus/commands
-ResearchData research = team.getData("research");
-if (research != null && research.hasTech("basic_tech")) {
-    // Allow access to technology
-}
+// Unlock a stage and save
+researchData.unlockStage(stageNumber);
+// reset progress
+researchData.resetProgress();
 ```
 
 ## Error Handling
-Always provide clear feedback to developers:
+Always provide clear feedback to developers and log errors:
 ```java
 try {
     // Perform operation
@@ -160,3 +114,12 @@ try {
     plugin.getLogger().severe("Developer API error: " + e.getMessage());
 }
 ```
+
+## See Also
+
+*   [User Guide](../docs/USER_GUIDE.md)
+*   [Research Configuration Guide](../docs/RESEARCH_CONFIGURATION.md)
+*   [Team System Documentation](../docs/TEAM_SYSTEM.md)
+
+---
+*Generated by TechWars Plugin Documentation Assistant.*
