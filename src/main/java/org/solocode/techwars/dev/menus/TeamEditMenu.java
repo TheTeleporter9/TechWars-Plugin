@@ -173,8 +173,10 @@ public class TeamEditMenu extends BaseMenu {
                     .toList());
             
             // Try to find the player (online or offline)
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
-            meta.setOwningPlayer(offlinePlayer);
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(playerName);
+            if (offlinePlayer != null) {
+                meta.setOwningPlayer(offlinePlayer);
+            }
             
             head.setItemMeta(meta);
         }

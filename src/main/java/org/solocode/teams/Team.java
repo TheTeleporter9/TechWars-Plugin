@@ -17,13 +17,65 @@ public class Team {
     private final String name;
     private final Set<UUID> members;
     private final Set<String> offlineMembers;
-    private final Map<String, Object> teamData;
+    private Map<String, Object> teamData;
+    private String color;
 
     public Team(String name) {
         this.name = name;
         this.members = new HashSet<>();
         this.offlineMembers = new HashSet<>();
         this.teamData = new HashMap<>();
+        this.color = generateRandomColor();
+    }
+    
+    /**
+     * Gets the team's color in hex format
+     * @return color hex string
+     */
+    public String getColor() {
+        return color != null ? color : generateRandomColor();
+    }
+    
+    /**
+     * Sets the team's color
+     * @param color hex color string
+     */
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    private String generateRandomColor() {
+        String[] colors = {
+            "#FF0000", // Red
+            "#00FF00", // Green
+            "#0000FF", // Blue
+            "#FFFF00", // Yellow
+            "#FF00FF", // Magenta
+            "#00FFFF", // Cyan
+            "#FFA500", // Orange
+            "#800080", // Purple
+            "#008000", // Dark Green
+            "#000080", // Navy
+            "#FF69B4", // Hot Pink
+            "#4B0082"  // Indigo
+        };
+        return colors[(int)(Math.random() * colors.length)];
+    }
+    
+    /**
+     * Gets all team data
+     * @return map of all team data
+     */
+    public Map<String, Object> getAllData() {
+        return teamData;
+    }
+
+    /**
+     * Sets all team data
+     * @param data map of data to set
+     */
+    public void setAllData(Map<String, Object> data) {
+        this.teamData = data != null ? data : new HashMap<>();
     }
 
     /**
@@ -53,6 +105,7 @@ public class Team {
      */
     public void addMember(Player player) {
         members.add(player.getUniqueId());
+        offlineMembers.remove(player.getName()); // In case they were in offline list
     }
 
     /**

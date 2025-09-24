@@ -1,20 +1,33 @@
+# TechWars Plugin Configuration
 
-
-Teams:
-    Team1:
-        -playerA
-        -playerB
-        -playerC
-    TeamB:
-        -player1
-        -player2
-    CollTeam:
-        -player1A
-        -plaeyr2B
-        -plaeyr3C
-        -player4d
-
-# List of developers who can access developer tools
+# Developer access list
 Developers:
-    - developer1
-    - developer2
+  - TheTeleporter9
+
+# Teams configuration
+Teams:
+  ExampleTeam:
+    color: "#FF0000"
+    members:
+      - TheTeleporter9
+
+# Research configuration
+Research:
+  Technology:
+    Basic:
+      requirements: []
+      rewards:
+        - STONE_TOOLS
+    Advanced:
+      requirements:
+        - Basic
+      rewards:
+        - IRON_TOOLS
+    Expert:
+      requirements:
+        - Advanced
+      rewards:
+        - DIAMOND_TOOLS
+
+# Plugin version - do not modify
+version: 1.0

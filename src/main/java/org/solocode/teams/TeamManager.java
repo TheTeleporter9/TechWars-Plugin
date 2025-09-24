@@ -15,11 +15,36 @@ import java.util.Optional;
 public class TeamManager {
     private final Map<String, Team> teams;
     private final TechWars plugin;
+    private final TeamDataManager dataManager;
 
     public TeamManager(TechWars plugin) {
         this.plugin = plugin;
         this.teams = new HashMap<>();
+        this.dataManager = new TeamDataManager(plugin);
         loadTeams();
+        loadTeamData();
+    }
+    
+    /**
+     * Loads team data from persistent storage
+     */
+    private void loadTeamData() {
+        Map<String, Map<String, Object>> teamData = dataManager.loadTeamData();
+        teamData.forEach((teamName, data) -> {
+            Team team = teams.get(teamName);
+            if (team != null) {
+                team.setAllData(data);
+            }
+        });
+    }
+
+    /**
+     * Saves all team data to persistent storage
+     */
+    public void saveTeamData() {
+        Map<String, Map<String, Object>> teamData = new HashMap<>();
+        teams.forEach((name, team) -> teamData.put(name, team.getAllData()));
+        dataManager.saveTeamData(teamData);
     }
 
     /**
