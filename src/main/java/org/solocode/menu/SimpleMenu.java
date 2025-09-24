@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public abstract class SimpleMenue implements Menue{
-    private final Map<Integer, Consumer<Player>> actions = new HashMap<>();
+public abstract class SimpleMenu implements Menu{
+    public final Map<Integer, Consumer<Player>> actions = new HashMap<>();
     private final Inventory inventory;
 
-    public SimpleMenue(Rows rows, String title) {
+    public SimpleMenu(Rows rows, String title) {
         this.inventory = Bukkit.createInventory(this, rows.getSize(), title);
     }
 

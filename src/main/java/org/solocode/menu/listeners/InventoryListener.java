@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.solocode.menu.Menue;
+import org.solocode.menu.Menu;
 
 public class InventoryListener implements Listener {
     @EventHandler
@@ -14,7 +14,7 @@ public class InventoryListener implements Listener {
 
         if(clickedInventory == null) return;
 
-        if(!(clickedInventory.getHolder() instanceof final Menue menue)) {
+        if(!(clickedInventory.getHolder() instanceof final Menu menue)) {
             //Here if cliked inventory is not a menue
             return;
         }
