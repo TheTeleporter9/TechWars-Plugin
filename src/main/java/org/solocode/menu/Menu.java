@@ -29,9 +29,9 @@ public interface Menu extends InventoryHolder {
 
     /**
      * Set an item with optional click action on a specific page.
-     * For SimpleMenu, the page parameter can be ignored.
+     * Required by interface, but logic is handled in concrete implementations.
      */
-    void setItem(int page, int slot, ItemStack item, Consumer<Player> action);
+    void setItem(String pageName, int slot, ItemStack item, Consumer<Player> action);
 
     /**
      * Populate or refresh the menu contents.

@@ -6,8 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.solocode.menu.SimpleMenu;
-import org.solocode.techwars.TechTree.TestMenu;
+import org.solocode.techwars.TechTree.MyPagedMenu;
 
 public class TestMenuCommand implements CommandExecutor {
     @Override
@@ -18,7 +17,12 @@ public class TestMenuCommand implements CommandExecutor {
             return true;
         }
 
-        TestMenu menu = new TestMenu(SimpleMenu.Rows.THREE, "IT has two ways to die!");
+        MyPagedMenu menu = new MyPagedMenu();
+
+        // Debug: Check if pages exist
+        System.out.println("Current page: " + menu.getCurrentPage());
+        System.out.println("Page count: " + menu.getPageCount());
+
         menu.open(player);
         return true;
     }
