@@ -1,0 +1,9 @@
+name: Techwars
+version: 1.0
+main: org.solocode.techwars.Techwars
+api-version: "1.20"
+
+commands:
+  border:
+    description: Creates a red border particle wall
+    usage: /border
