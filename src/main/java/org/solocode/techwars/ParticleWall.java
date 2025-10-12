@@ -15,34 +15,54 @@ public class ParticleWall {
     public ArrayList<Location> wallCenterLocations = new ArrayList<>();
     public ArrayList<Location> wallEdgeLocations = new ArrayList<>();
 
+
     Random rand = new Random();
 
     public void createWall(List<Location> wallCenterLocations) {
-        for (Location centerLocation : wallCenterLocations) {
+        // Remove overlapping walls
+        Location newCenterLocation = null;
+        if(!wallCenterLocations.isEmpty()) {
+            newCenterLocation = wallCenterLocations.get(wallCenterLocations.size() -1);
+        }
 
-            World world = centerLocation.getWorld();
-            if (world == null) continue;
-            //Per wall
-            for (int i = 0; i <= 4; i++){
-                switch (i) {
-                    case 0:
-                        summonParticles(8, 100, centerLocation.clone().add(0, 0, 7), world, Rotations.EASTWEST);
-                    case 1:
-                        summonParticles(8, 100, centerLocation.clone().add(-8, 0, 0), world, Rotations.NOTRHTSOUTH);
-                    case 2:
-                        summonParticles(8, 100, centerLocation.clone().add(0, 0, -8), world, Rotations.EASTWEST);
-                    case 3:
-                        summonParticles(8, 100, centerLocation.clone().add(7, 0, 0), world, Rotations.NOTRHTSOUTH);
-                    default:
-                        break;
-                }
+        updateBorders(newCenterLocation);
+
+        // Add new center after cleanup
+        this.wallCenterLocations.add(newCenterLocation);
+
+        World world = newCenterLocation.getWorld();
+        if (world == null) return;
+
+        // Per wall
+        for (int i = 0; i <= 4; i++) {
+            switch (i) {
+                case 0:
+                    summonParticles(8, 100, newCenterLocation.clone().add(0, 0, 7), world, Rotations.EASTWEST);
+                case 1:
+                    summonParticles(8, 100, newCenterLocation.clone().add(-8, 0, 0), world, Rotations.NOTRHTSOUTH);
+                case 2:
+                    summonParticles(8, 100, newCenterLocation.clone().add(0, 0, -8), world, Rotations.EASTWEST);
+                case 3:
+                    summonParticles(8, 100, newCenterLocation.clone().add(7, 0, 0), world, Rotations.NOTRHTSOUTH);
             }
         }
     }
 
 
+
+    private void updateBorders(Location newCenter) {
+
+        wallCenterLocations.removeIf(existing -> existing.getWorld().equals(newCenter.getWorld()) &&
+                existing.distanceSquared(newCenter) <= 4); // 2 blocks distance squared = 4
+
+
+        wallEdgeLocations.removeIf(edge -> edge.getWorld().equals(newCenter.getWorld()) &&
+                edge.distanceSquared(newCenter) <= 4);
+    }
+
+
     public void summonParticles(int width, int height, Location centerLocation, World world, Rotations rot) {
-        double spacing = 1.0; // particle spacing
+        double spacing = 1.0;
 
         for (int y = 0; y < height; y++) {
             for (int x = -width; x <= width; x++) {

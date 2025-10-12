@@ -33,7 +33,7 @@ public class BorderCommand implements CommandExecutor {
 
 
         while (loc.getBlock().getType() == Material.AIR && loc.getY() > 0) {
-            loc = loc.clone().add(0, -1, 0);
+            loc = loc.clone().add(0, -1, 0); // store the new location
         }
 
         pw.wallCenterLocations.add(loc);

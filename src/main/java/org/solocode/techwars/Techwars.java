@@ -2,21 +2,40 @@ package org.solocode.techwars;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.solocode.commands.TestMenuCommand;
-import org.solocode.menu.listeners.InventoryListener;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.solocode.commands.BorderCommand;
 
-/**
- * Main plugin class for TechWars. This class handles plugin startup, shutdown, 
- * command registration, event listener registration, and provides access to core managers.
- */
-public final class TechWars extends JavaPlugin {
+public final class Techwars extends JavaPlugin {
+
+    private BukkitRunnable updateTask;
+    private ParticleWall pw;
 
     @Override
     public void onEnable() {
+        Bukkit.getLogger().info("Techwars Plugin is online!");
 
-        getCommand("dev").setExecutor(new TestMenuCommand());
+        pw = new ParticleWall();
+
+        getCommand("border").setExecutor(new BorderCommand(pw));
+
+        createUpdateLoop();
 
     }
 
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+    }
 
+    public void createUpdateLoop () {
+        updateTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                //Enter all the update loop stuff
+                pw.createWall(pw.wallCenterLocations);
+
+            }
+        };
+        updateTask.runTaskTimer(this, 20L, 20L);
+    }
 }
