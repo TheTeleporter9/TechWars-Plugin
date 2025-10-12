@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.Solocode</groupId>
+<<<<<<< HEAD
     <artifactId>Techwars</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -13,6 +14,16 @@
 
     <properties>
         <java.version>1.8</java.version>
+=======
+    <artifactId>TechWars</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>TechWars</name>
+
+    <properties>
+        <java.version>16</java.version>
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -21,16 +32,27 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+<<<<<<< HEAD
                 <version>3.8.1</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
+=======
+                <version>3.11.0</version>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+<<<<<<< HEAD
                 <version>3.2.4</version>
+=======
+                <version>3.5.1</version>
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -40,12 +62,19 @@
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
         </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+<<<<<<< HEAD
                 <filtering>false</filtering>
+=======
+                <filtering>true</filtering>
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
             </resource>
         </resources>
     </build>
@@ -68,5 +97,13 @@
             <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+<<<<<<< HEAD
+=======
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
     </dependencies>
 </project>

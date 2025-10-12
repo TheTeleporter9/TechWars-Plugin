@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Techwars
 version: 1.0
 main: org.solocode.techwars.Techwars
@@ -7,3 +8,15 @@ commands:
   border:
     description: Creates a red border particle wall
     usage: /border
+=======
+name: TechWars
+version: '1.0-SNAPSHOT'
+main: org.solocode.techwars.TechWars
+api-version: '1.20'
+load: STARTUP
+
+commands:
+  dev:
+    description: "Opens the developer menu"
+    usage: "/dev"
+>>>>>>> 473c981081b68dd4e4335af712c27e6d7a7358ae
