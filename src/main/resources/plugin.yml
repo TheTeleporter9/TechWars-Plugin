@@ -1,0 +1,11 @@
+name: Techwars
+version: '${project.version}'
+main: org.solocode.techwars.Techwars
+api-version: '1.20'
+load: STARTUP
+commands:
+  refreshteams:
+    description: Refresh teams from the database
+    usage: /refreshteams [player]
+    permission: techwars.refresh
+    permission-message: You don't have permission to use this command.

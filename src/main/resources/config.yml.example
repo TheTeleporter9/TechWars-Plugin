@@ -1,0 +1,12 @@
+# TechWars Plugin Configuration
+# Copy this file to config.yml and fill in your credentials
+# DO NOT COMMIT config.yml WITH REAL CREDENTIALS!
+
+# Supabase Configuration
+supabase:
+  # Your Supabase API URL (e.g., https://xxxxx.supabase.co/rest/v1/minecraft_teams)
+  url: "https://your-project.supabase.co/rest/v1/minecraft_teams"
+  
+  # Your Supabase API Key (anon/public key)
+  api-key: "your-api-key-here"
+
